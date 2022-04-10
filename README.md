@@ -7,11 +7,15 @@
 
 - Design et simulations du circuit d'amplification sous LtSpice
 - Implémentation du circuit sous KiCAD et design du PCB
-- 
-
+- Fabrication du PCB et soudure des composants
+- Programmation du code arduino
+- Création de l'application android
+- Conception d'un banc de test
+- Test et caractérisation du capteur
 
 --------------------------------
 ## Design et simulations du circuit analogique - SHIELD
+<img width="682" alt="image" src="https://user-images.githubusercontent.com/98756768/162627560-eff7b23d-4dba-4596-a803-328505fb96de.png">
 
 --------------------------------
 ## Conception du SHIELD sous KiCAD
