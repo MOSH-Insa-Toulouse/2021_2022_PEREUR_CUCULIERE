@@ -57,8 +57,9 @@ Nous avons ensuite procédé au routage du PCB :
 
 <p float="center">
   <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="503" />
-  <img src="https://user-images.githubusercontent.com/98756768/163398497-e9f91af6-3401-43fa-834c-9181a942b9ca.jpg" width="503" /> 
+  <img src="https://user-images.githubusercontent.com/98756768/163399923-f231b26b-25a9-4389-b133-757dd3b60362.jpg" width="503" /> 
 </p>
+
 
 
 --------------------------------
