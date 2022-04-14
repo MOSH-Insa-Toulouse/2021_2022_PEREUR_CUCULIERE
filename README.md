@@ -17,7 +17,6 @@
 ## Design et simulations du circuit analogique - SHIELD
 
 Le capteur que nous souhaitons utiliser pour ce projet est alimenté en 5V pour une résistance variant d’environ 20M à 100M ohm très grande devant l’impédance de l’arduino. Une mesure directe d’un courant de l’ordre de 100 nA n’est pas possible avec l’arduino. Il nous faut donc amplifier le signal. Pour cela nous avons utilisé le montage électrique ci-dessous. C’est un amplificateur transimpédance à 2 étages.
-<img width="682" alt="image" src="https://user-images.githubusercontent.com/98756768/162627560-eff7b23d-4dba-4596-a803-328505fb96de.png">
 
 Ce montage gère à la fois l’amplification et le filtrage du signal pour limiter l’amplification du bruit. Le montage possède 3 filtres en tension et un filtre en courant (voir schéma ci-dessous).
 ![Schéma_Ampli](https://user-images.githubusercontent.com/98756768/163346556-cbdbaac7-0b5a-469e-9e8a-d9c0a090c3a1.jpg)
@@ -56,11 +55,10 @@ Nous avons commencé par le l'implémentation de l'amplificateur transimpédance
 
 Nous avons ensuite procédé au routage du PCB : 
 
-Routage
-![2022-SHIELD-PCB](https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg)
-
-Visualisation 3D
-![2022-SHIELD-PCB_3D](https://user-images.githubusercontent.com/98756768/161790557-ef1d0686-6336-4032-b2d8-08a17e8f31cf.jpg)
+<p float="center">
+  <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="503" />
+  <img src="https://user-images.githubusercontent.com/98756768/163398497-e9f91af6-3401-43fa-834c-9181a942b9ca.jpg" width="503" /> 
+</p>
 
 
 --------------------------------
