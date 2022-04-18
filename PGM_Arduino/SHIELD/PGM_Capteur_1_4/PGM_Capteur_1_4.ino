@@ -3,6 +3,7 @@
 #include <Adafruit_GFX.h>
 #include <SoftwareSerial.h>
 #include <SPI.h>
+#include <Fonts/FreeMonoBoldOblique12pt7b.h>
 
 // Définintions OLED
 
@@ -41,7 +42,7 @@ SoftwareSerial mySerial(rxPin ,txPin); //D�finition du software serial
 // Déclarations variables debouncing
 
 int lastDebounceTime = 0;
-int debounceDelay = 150;
+int debounceDelay = 200;
 
 
 float Vadc = 0.0;
@@ -51,6 +52,7 @@ float R2 ;
 float R5 = 10000.0;
 float Vcc = 5.0;
 float Rcapteur = 0.0;
+int Rcal = 0;
 
 // Déclarations Calibration
 
@@ -68,23 +70,6 @@ const long rAB             = 46200;   // 100k pot resistance between terminals A
 const byte rWiper          = 125;     // 125 ohms pot wiper resistance
 const byte pot0            = 0x11;    // pot0 addr // B 0001 0001
 const byte pot0Shutdown    = 0x21;    // pot0 shutdown // B 0010 0001
-
-void setPotWiper(int addr, int pos) {
-  pos = constrain(pos, 0, 255);            // limit wiper setting to range of 0 to 255
-  digitalWrite(csPin, LOW);                // select chip
-  SPI.transfer(addr);                      // configure target pot with wiper position
-  SPI.transfer(pos);
-  digitalWrite(csPin, HIGH);               // de-select chip
-
-  // print pot resistance between wiper and B terminal
-  long resistanceWB = ((rAB * pos) / maxPositions ) + rWiper;
-//  Serial.print("Wiper position: ");
-//  Serial.print(pos);
-//  Serial.print(" Resistance wiper to B terminal: ");
-//  Serial.print(resistanceWB);
-//  Serial.println(" ohms");
-  R2 = resistanceWB;
-}
 
 
 /****************************SETUP********************************/
@@ -122,6 +107,14 @@ void setup() {
   digitalWrite(csPin, HIGH);        // chip select default to de-selected
   pinMode(csPin, OUTPUT);           // configure chip select as output
   SPI.begin();
+
+//  do{
+//    setPotWiper(pot0, Rcal);
+//    Vadc = (5*analogRead(A0))/1023.0;
+//    Serial.println(Vadc);
+//    Rcal++;
+//    delay(50);
+//  }while(Vadc > 2.5);
   
 }
 
@@ -129,10 +122,20 @@ void setup() {
 /****************************LOOP********************************/
 
 void loop() {
-  
+
+  setPotWiper(pot0, Rcal);
+  Vadc = (5*analogRead(A0))/1023.0;
+   if(Vadc > 3){ 
+    Vadc = (5*analogRead(A0))/1023.0;
+    Serial.println(Vadc);
+    Rcal++;
+   }
+   if(Vadc < 1.2){ 
+    Vadc = (5*analogRead(A0))/1023.0;
+    Serial.println(Vadc);
+    Rcal--;
+   }
   // Mesure et calcul de la résistance
-  
-  setPotWiper(pot0, 3);
   Vadc = (Vcc*analogRead(A0))/1023.0;
   Rcapteur = (1+R3/R2)*R1*(Vcc/Vadc)-R1-R5;
 
@@ -146,10 +149,28 @@ void loop() {
   mySerial.print(Rcapteur);
 
   //TESTS
+//
+  Serial.println(R2);
+  Serial.println(Rcal);
+  Serial.println(Vadc);
+  Serial.println(Rcapteur);
+
+  delay(200);
+}
 
 
+/********SPI*********/
 
-  delay(50);
+void setPotWiper(int addr, int pos) {
+  pos = constrain(pos, 0, 255);            // limit wiper setting to range of 0 to 255
+  digitalWrite(csPin, LOW);                // select chip
+  SPI.transfer(addr);                      // configure target pot with wiper position
+  SPI.transfer(pos);
+  digitalWrite(csPin, HIGH);               // de-select chip
+
+  // print pot resistance between wiper and B terminal
+  long resistanceWB = ((rAB * pos) / maxPositions ) + rWiper;
+  R2 = resistanceWB;
 }
 
 
@@ -218,7 +239,7 @@ void menuOLED(){
 // Menu de démarrage
 
 void staticMenu() {
-  OLED.setTextSize(1);
+
   //OLED.setTextColor(WHITE);
 
   //---------------------------------
@@ -265,7 +286,7 @@ void menuA(){
 
   OLED.setCursor(10, 40);
   OLED.println("Click to go back");
-
+ 
   // Curseur de selection
   OLED.setCursor(2, (encoderPos1 * 10)- 10);
   OLED.println(">");
@@ -305,13 +326,16 @@ void menuB(){
 void menuC(){
   
   OLED.setTextSize(1);
+  
   //OLED.setTextColor(WHITE);
   OLED.setCursor(10, 0);
   OLED.println("CREDIT");
 
-  OLED.setCursor(10, 10);
-  OLED.println("CucLuc ou Luccuc");
-
+  OLED.setFont(&FreeMonoBoldOblique12pt7b);
+  OLED.setCursor(10, 30);
+  OLED.println("CucLuc");
+  
+  OLED.setFont();
   OLED.setCursor(10, 40);
   OLED.println("Click to go back");
 
@@ -322,6 +346,7 @@ void menuC(){
   OLED.display();
   
   OLED.clearDisplay();
+  
 }
 
 
@@ -359,7 +384,7 @@ void doEncoder(){
        encoderPos --; 
       }
       else{
-        encoderPos == 5;
+        encoderPos == 3;
       }
     }
     if(menuType==LOW){
@@ -373,7 +398,7 @@ void doEncoder(){
   }
   if (digitalRead(pinClk)!=digitalRead(pinData)){
     if(menuType==HIGH){
-      if(encoderPos < 5){
+      if(encoderPos < 3){
        encoderPos ++; 
       }
       else{
