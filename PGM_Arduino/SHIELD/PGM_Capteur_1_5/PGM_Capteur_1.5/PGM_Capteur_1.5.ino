@@ -110,12 +110,7 @@ void setup() {
   pinMode(csPin, OUTPUT);           // configure chip select as output
   SPI.begin();
 
-  do{
-    setPotWiper(pot0, Rcal);
-    Vadc = (5*analogRead(A0))/1023.0;
-    Serial.println(Vadc);
-    Rcal++;
-  }while(Vadc > 2.7);
+  autocalibration();
 }
 
 
@@ -124,18 +119,18 @@ void setup() {
 void loop() {
 
 
-  setPotWiper(pot0, Rcal);
-  Vadc = (5*analogRead(A0))/1023.0;
-   if(Vadc > 3){ 
-    Vadc = (5*analogRead(A0))/1023.0;
-    Serial.println(Vadc);
-    Rcal++;
-   }
-   if(Vadc < 1.2){ 
-    Vadc = (5*analogRead(A0))/1023.0;
-    Serial.println(Vadc);
-    Rcal--;
-   }
+//  setPotWiper(pot0, Rcal);
+//  Vadc = (5*analogRead(A0))/1023.0;
+//   if(Vadc > 3){ 
+//    Vadc = (5*analogRead(A0))/1023.0;
+//    Serial.println(Vadc);
+//    Rcal++;
+//   }
+//   if(Vadc < 1.2){ 
+//    Vadc = (5*analogRead(A0))/1023.0;
+//    Serial.println(Vadc);
+//    Rcal--;
+//   }
   // Mesure et calcul de la résistance
 
   Vadc = (Vcc * analogRead(A0)) / 1023.0;
@@ -148,9 +143,7 @@ void loop() {
   OLED.clearDisplay();
 
   //test module bluetooth
-
-  byte Max = upR;
-  byte Min = downR;
+  
   byte RV = R2;
   int mode = 0;
 
@@ -166,20 +159,22 @@ switch (mySerial.read()){
   break;
   };
 
+
 Serial.println(mySerial.read());
 if (mode == 1) {
-  mySerial.println(analogRead(A0));
+  mySerial.println(int(analogRead(A0)));
 }
 if (mode == 2) {
-  mySerial.println(RV);
+  mySerial.println(int(RV));
 }
 
-//mySerial.println(analogRead(A0));
+
 
 
   //TESTS
 
   Serial.println(Vadc);
+  Serial.println(R2);
 
   delay(100);
 }
@@ -198,7 +193,20 @@ void setPotWiper(int addr, int pos) {
   R2 = resistanceWB;
 }
 
+/*******Autocalibration******/
 
+void autocalibration(){
+  Rcal = 0;
+  do{
+    setPotWiper(pot0, Rcal);
+    Vadc = (5*analogRead(A0))/1023.0;
+    Serial.println(Vadc);
+    Serial.println(Rcal);
+    Rcal++;
+    delay(50);
+  }while(Vadc > 2.7);
+  menuType=HIGH;
+}
 
 /*******calibration*******/
 
@@ -258,6 +266,7 @@ void menuOLED(){
     }
   if(menuType==LOW && encoderPos==2){menuB();}
   if(menuType==LOW && encoderPos==3){menuC();}
+  if(menuType==LOW && encoderPos==4){autocalibration();}
   
 }
 
@@ -278,6 +287,9 @@ void staticMenu() {
 
   OLED.setCursor(10, 20);
   OLED.println("CREDIT");
+
+  OLED.setCursor(10, 30);
+  OLED.println("AUTOCALIBRATION");
 
   // Curseur de selection
   OLED.setCursor(2, (encoderPos * 10)- 10);
@@ -308,7 +320,6 @@ void menuA(){
   OLED.println("MIN");
   OLED.setCursor(60, 20);
   OLED.println(downR);
-
 
   OLED.setCursor(10, 40);
   OLED.println("Click to go back");
@@ -410,7 +421,7 @@ void doEncoder(){
        encoderPos --; 
       }
       else{
-        encoderPos == 3;
+        encoderPos == 4;
       }
     }
     if(menuType==LOW){
@@ -424,7 +435,7 @@ void doEncoder(){
   }
   if (digitalRead(pinClk)!=digitalRead(pinData)){
     if(menuType==HIGH){
-      if(encoderPos < 3){
+      if(encoderPos < 4){
        encoderPos ++; 
       }
       else{
