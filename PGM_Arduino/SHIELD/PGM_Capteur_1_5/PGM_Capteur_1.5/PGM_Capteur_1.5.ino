@@ -361,7 +361,8 @@ void menuB(){
 // Crédit du projet
 
 void menuC(){
-  
+
+  for(int i=0;i<45;i++){
   OLED.setTextSize(1);
   
   //OLED.setTextColor(WHITE);
@@ -369,7 +370,7 @@ void menuC(){
   OLED.println("CREDIT");
 
   OLED.setFont(&FreeMonoBoldOblique12pt7b);
-  OLED.setCursor(10, 30);
+  OLED.setCursor(i, 30);
   OLED.println("CucLuc");
   
   OLED.setFont();
@@ -383,7 +384,33 @@ void menuC(){
   OLED.display();
   
   OLED.clearDisplay();
+  }
+
+  for(int i=45;i>0;i--){
+  OLED.setTextSize(1);
   
+  //OLED.setTextColor(WHITE);
+  OLED.setCursor(10, 0);
+  OLED.println("CREDIT");
+
+  OLED.setFont(&FreeMonoBoldOblique12pt7b);
+  OLED.setCursor(i, 30);
+  OLED.println("CucLuc");
+  
+  OLED.setFont();
+  OLED.setCursor(10, 40);
+  OLED.println("Click to go back");
+
+  // Curseur de selection
+  OLED.setCursor(2, (encoderPos1 * 10)- 10);
+  OLED.println(">");
+
+  OLED.display();
+  
+  OLED.clearDisplay();
+  }
+  
+  delay(50);
 }
 
 
