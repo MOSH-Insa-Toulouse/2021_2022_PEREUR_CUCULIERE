@@ -71,10 +71,26 @@ Nous avons ensuite procédé au routage du PCB :
 --------------------------------
 ## Développement du programme Arduino
 
+### Description du programme 
+
+Le programme de l'arduino uno permets de lire la tension à la sortie du capteur et calcul la valeur de la résistance. Ce programme contient plusieurs parties :
+* OLED : Création d'un menu contenant l'affichage de la résistance, l'autocalibration, les crédit du projet et une calibration pour obtenir le minium et maximum de la résistance
+* Encodeur rotatoire : gestion du menu grâce à des interruptions
+* SPI (potentiomètre digital) : gestion de la résistance variable R2 et autocalibration
+* Bluetooth : traitement et envoi des données à l'application
+
+### Bibliothèques utilisés
+
+
 
 --------------------------------
 ## Banc de tests
 
+### Protocole de test et description du banc
+
+### Résultats & Analyse
 
 --------------------------------
 ## Datasheet
+
+
