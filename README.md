@@ -1,9 +1,15 @@
 # 2022_CAPTEUR_Pereur_Cuculière
 --------------------------------
 ## Sommaire
+* 1 [Etapes de conception](#etapes-de-conception)
+* 2 [Design et simulations du circuit analogique](#design-et-simulations-du-circuit-analogique)
+* 3 [Conception du SHIELD sous KiCAD](#conception-du-shield-sous-kicad)
+* 4 [Développement du programme Arduino](#développement-du-programme-arduino)
+* 5 [Banc de tests](#banc-de-tests)
+* 6 [Datasheet](#datasheet)
 
 --------------------------------
-## Etapes de conception (Générales)
+## Etapes de conception
 
 - Design et simulations du circuit d'amplification sous LtSpice
 - Implémentation du circuit sous KiCAD et design du PCB
@@ -14,7 +20,7 @@
 - Test et caractérisation du capteur
 
 --------------------------------
-## Design et simulations du circuit analogique - SHIELD
+## Design et simulations du circuit analogique
 
 Le capteur que nous souhaitons utiliser pour ce projet est alimenté en 5V pour une résistance variant d’environ 20M à 100M ohm très grande devant l’impédance de l’arduino. Une mesure directe d’un courant de l’ordre de 100 nA n’est pas possible avec l’arduino. Il nous faut donc amplifier le signal. Pour cela nous avons utilisé le montage électrique ci-dessous. C’est un amplificateur transimpédance à 2 étages.
 
@@ -71,4 +77,4 @@ Nous avons ensuite procédé au routage du PCB :
 
 
 --------------------------------
-## Création de la datasheet
+## Datasheet
