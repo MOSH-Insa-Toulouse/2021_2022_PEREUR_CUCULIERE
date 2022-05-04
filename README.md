@@ -29,8 +29,8 @@ Ce montage gère à la fois l’amplification et le filtrage du signal pour limi
 
 On peut calculer la résistance du capteur selon la formule suivante : 
 
-R_Capteur=(1+\frac{R3}{R2}).R1.(\frac{V_CC}{V_ADC})-R1-R5 avec un gain `1+\frac{R3}{R2}`
-
+<p align="center"><img width="438" alt="image" src="https://user-images.githubusercontent.com/98756768/166805082-91a18edf-60b1-47d5-a5ce-461050bdc2cc.png"></p>
+  
 |Filtre|Fréquence de coupure|
 |------|------|
 |  1   | 16 Hz|
@@ -38,7 +38,7 @@ R_Capteur=(1+\frac{R3}{R2}).R1.(\frac{V_CC}{V_ADC})-R1-R5 avec un gain `1+\frac{
 |  3   | 1,6 kHz|
 
 Ci-dessous, nous pouvons voir la réponse de Vadc en fonction du temps pour une tension de capteur variant de 0 à 1V. A gauche le signal sans l'influence du 50hz et à droite avec l'influence du 50hz
-<p float="left">
+<p align="center">
   <img src="https://user-images.githubusercontent.com/98756768/163351592-08c6bdaa-d5c6-4ba1-9c82-309b9e376945.jpg" width="500" />
   <img src="https://user-images.githubusercontent.com/98756768/163351538-64b146e8-af4c-4385-9f51-5eae3a89d5b3.jpg" width="500" /> 
 </p>
@@ -61,7 +61,7 @@ Nous avons commencé par le l'implémentation de l'amplificateur transimpédance
 
 Nous avons ensuite procédé au routage du PCB : 
 
-<p float="center">
+<p float="left">
   <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="500" />
   <img src="https://user-images.githubusercontent.com/98756768/163399923-f231b26b-25a9-4389-b133-757dd3b60362.jpg" width="500" /> 
 </p>
