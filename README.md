@@ -1,9 +1,15 @@
 # 2022_CAPTEUR_Pereur_Cuculière
 --------------------------------
 ## Sommaire
+* 1 [Etapes de conception](#etapes-de-conception)
+* 2 [Design et simulations du circuit analogique](#design-et-simulations-du-circuit-analogique)
+* 3 [Conception du SHIELD sous KiCAD](#conception-du-shield-sous-kicad)
+* 4 [Développement du programme Arduino](#développement-du-programme-arduino)
+* 5 [Banc de tests](#banc-de-tests)
+* 6 [Datasheet](#datasheet)
 
 --------------------------------
-## Etapes de conception (Générales)
+## Etapes de conception
 
 - Design et simulations du circuit d'amplification sous LtSpice
 - Implémentation du circuit sous KiCAD et design du PCB
@@ -14,7 +20,7 @@
 - Test et caractérisation du capteur
 
 --------------------------------
-## Design et simulations du circuit analogique - SHIELD
+## Design et simulations du circuit analogique
 
 Le capteur que nous souhaitons utiliser pour ce projet est alimenté en 5V pour une résistance variant d’environ 20M à 100M ohm très grande devant l’impédance de l’arduino. Une mesure directe d’un courant de l’ordre de 100 nA n’est pas possible avec l’arduino. Il nous faut donc amplifier le signal. Pour cela nous avons utilisé le montage électrique ci-dessous. C’est un amplificateur transimpédance à 2 étages.
 
@@ -23,8 +29,8 @@ Ce montage gère à la fois l’amplification et le filtrage du signal pour limi
 
 On peut calculer la résistance du capteur selon la formule suivante : 
 
-R_Capteur=(1+\frac{R3}{R2}).R1.(\frac{V_CC}{V_ADC})-R1-R5 avec un gain `1+\frac{R3}{R2}`
-
+<p align="center"><img width="438" alt="image" src="https://user-images.githubusercontent.com/98756768/166805082-91a18edf-60b1-47d5-a5ce-461050bdc2cc.png"></p>
+  
 |Filtre|Fréquence de coupure|
 |------|------|
 |  1   | 16 Hz|
@@ -32,9 +38,9 @@ R_Capteur=(1+\frac{R3}{R2}).R1.(\frac{V_CC}{V_ADC})-R1-R5 avec un gain `1+\frac{
 |  3   | 1,6 kHz|
 
 Ci-dessous, nous pouvons voir la réponse de Vadc en fonction du temps pour une tension de capteur variant de 0 à 1V. A gauche le signal sans l'influence du 50hz et à droite avec l'influence du 50hz
-<p float="left">
-  <img src="https://user-images.githubusercontent.com/98756768/163351592-08c6bdaa-d5c6-4ba1-9c82-309b9e376945.jpg" width="503" />
-  <img src="https://user-images.githubusercontent.com/98756768/163351538-64b146e8-af4c-4385-9f51-5eae3a89d5b3.jpg" width="503" /> 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/98756768/163351592-08c6bdaa-d5c6-4ba1-9c82-309b9e376945.jpg" width="500" />
+  <img src="https://user-images.githubusercontent.com/98756768/163351538-64b146e8-af4c-4385-9f51-5eae3a89d5b3.jpg" width="500" /> 
 </p>
 
 Le gain du circuit est : A0 = 1+R3/R2 
@@ -55,9 +61,9 @@ Nous avons commencé par le l'implémentation de l'amplificateur transimpédance
 
 Nous avons ensuite procédé au routage du PCB : 
 
-<p float="center">
-  <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="503" />
-  <img src="https://user-images.githubusercontent.com/98756768/163399923-f231b26b-25a9-4389-b133-757dd3b60362.jpg" width="503" /> 
+<p float="left">
+  <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="500" />
+  <img src="https://user-images.githubusercontent.com/98756768/163399923-f231b26b-25a9-4389-b133-757dd3b60362.jpg" width="500" /> 
 </p>
 
 
@@ -65,10 +71,41 @@ Nous avons ensuite procédé au routage du PCB :
 --------------------------------
 ## Développement du programme Arduino
 
+### Description du programme 
+
+Le programme de l'arduino uno, écrit en C++, permets de lire la tension à la sortie du capteur et calcul la valeur de la résistance. Il a été réalisé en utilisant le environnement de développement Arduino (Arduino IDE). 
+
+Ce programme contient plusieurs parties :
+* OLED : Création d'un menu contenant l'affichage de la résistance, l'autocalibration, les crédit du projet et une calibration pour obtenir le minium et maximum de la résistance
+* Encodeur rotatoire : gestion du menu grâce à des interruptions
+* SPI (potentiomètre digital) : gestion de la résistance variable R2 et autocalibration
+* Bluetooth : traitement et envoi des données à l'application
+
+Le code est disponible [ici.](https://github.com/MOSH-Insa-Toulouse/2021_2022_PEREUR_CUCULIERE/tree/main/PGM_Arduino/SHIELD/PGM_Capteur_1_5/PGM_Capteur_1.5)
+
+### Bibliothèques utilisés
+>- SoftwareSerial.h pour la définition des ports utilisés pour le module bluetooth et le potentiomètre digital
+>- Adafruit_GFX.h et Adafruit_SSD1306.h pour l'OLED I2C
+>- Wire.h qui s'occupe de la communication en I2C avec l'OLED
+>- SPI.h pour la communication avec les module SPI, ici le potentiomètre digital
+
+### Amélioration possibles 
+>Une optimisation du code pour permettre une exécution plus rapide. Pour cela, il serait possible de diminiuer le nombre de variables utilisées pour la gestions des >menus ainsi qu'un changement sur la gestion du changement de menus. 
+>
+>Le code du potentiomètre digital pourrait également être améliorer pour une meilleure réactivité. Actuellement il nécessite un certain délai pour calibrer les >valeurs. 
+--------------------------------
+## Application android
+
+ 
 
 --------------------------------
 ## Banc de tests
 
+Les différents capteurs ont été testé en tension et en compression pour des rayons de courbures variant de 5,5 cm à 1,5 cm. Le banc de test est constitué d'un morceau de carton dans lequel des fentes ont été découpé et d'un support en plastique souple pour rigidifier le capteur. 
+
+Le protocole de test est disponible en suivant [ce lien.]()
 
 --------------------------------
-## Création de la datasheet
+## Datasheet
+
+
