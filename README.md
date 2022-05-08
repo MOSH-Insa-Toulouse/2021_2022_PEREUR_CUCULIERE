@@ -73,22 +73,37 @@ Nous avons ensuite procédé au routage du PCB :
 
 ### Description du programme 
 
-Le programme de l'arduino uno permets de lire la tension à la sortie du capteur et calcul la valeur de la résistance. Ce programme contient plusieurs parties :
+Le programme de l'arduino uno, écrit en C++, permets de lire la tension à la sortie du capteur et calcul la valeur de la résistance. Il a été réalisé en utilisant le environnement de développement Arduino (Arduino IDE). 
+
+Ce programme contient plusieurs parties :
 * OLED : Création d'un menu contenant l'affichage de la résistance, l'autocalibration, les crédit du projet et une calibration pour obtenir le minium et maximum de la résistance
 * Encodeur rotatoire : gestion du menu grâce à des interruptions
 * SPI (potentiomètre digital) : gestion de la résistance variable R2 et autocalibration
 * Bluetooth : traitement et envoi des données à l'application
 
+Le code est disponible [ici.](https://github.com/MOSH-Insa-Toulouse/2021_2022_PEREUR_CUCULIERE/tree/main/PGM_Arduino/SHIELD/PGM_Capteur_1_5/PGM_Capteur_1.5)
+
 ### Bibliothèques utilisés
+>- SoftwareSerial.h pour la définition des ports utilisés pour le module bluetooth et le potentiomètre digital
+>- Adafruit_GFX.h et Adafruit_SSD1306.h pour l'OLED I2C
+>- Wire.h qui s'occupe de la communication en I2C avec l'OLED
+>- SPI.h pour la communication avec les module SPI, ici le potentiomètre digital
 
+### Amélioration possibles 
+>Une optimisation du code pour permettre une exécution plus rapide. Pour cela, il serait possible de diminiuer le nombre de variables utilisées pour la gestions des >menus ainsi qu'un changement sur la gestion du changement de menus. 
+>
+>Le code du potentiomètre digital pourrait également être améliorer pour une meilleure réactivité. Actuellement il nécessite un certain délai pour calibrer les >valeurs. 
+--------------------------------
+## Application android
 
+ 
 
 --------------------------------
 ## Banc de tests
 
-### Protocole de test et description du banc
+Les différents capteurs ont été testé en tension et en compression pour des rayons de courbures variant de 5,5 cm à 1,5 cm. Le banc de test est constitué d'un morceau de carton dans lequel des fentes ont été découpé et d'un support en plastique souple pour rigidifier le capteur. 
 
-### Résultats & Analyse
+Le protocole de test est disponible en suivant [ce lien.]()
 
 --------------------------------
 ## Datasheet
