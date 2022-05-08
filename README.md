@@ -103,9 +103,9 @@ Le code est disponible [ici.](https://github.com/MOSH-Insa-Toulouse/2021_2022_PE
 
 Les différents capteurs ont été testé en tension et en compression pour des rayons de courbures variant de 5,5 cm à 1,5 cm. Le banc de test est constitué d'un morceau de carton dans lequel des fentes ont été découpé et d'un support en plastique souple pour rigidifier le capteur. 
 
-Le protocole de test est disponible en suivant [ce lien.]()
+Le protocole de test est disponible en suivant [ce lien.](https://github.com/MOSH-Insa-Toulouse/2021_2022_PEREUR_CUCULIERE/tree/main/Banc_de_Tests)
 
 --------------------------------
 ## Datasheet
 
-
+La datasheet contient les caractéristiques principales du capteur ainsi que le circuit d'amplification transimpédance utilisé pour les mesures. On la retrouve dans le dossier [Datasheets]() du github. 
