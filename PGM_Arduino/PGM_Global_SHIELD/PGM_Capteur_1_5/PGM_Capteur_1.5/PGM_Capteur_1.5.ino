@@ -175,6 +175,7 @@ if (mode == 2) {
 
   Serial.println(Vadc);
   Serial.println(R2);
+  Serial.println(Rcapteur/1000000);
 
   delay(100);
 }
