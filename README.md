@@ -56,10 +56,14 @@ Sur le graphique ci-dessous, nous pouvons voir les différentes courbes de Vadc 
 --------------------------------
 ## Conception du SHIELD sous KiCAD
 
-Nous avons commencé par le l'implémentation de l'amplificateur transimpédance dans le schéma électrique global du SHIELD visible ci-dessous : 
+>- Création des symboles de l'encodeur rotatoire, du module bluetooth, de l'OLED et du potentiomètre digital.
+>  Tous les symboles sont répertoriés dans le dossier KiCad. 
+>
+>- Réalisation du schéma électrique comportant l'amplificateur transimpédance, l'OLED, le module bluetooth, le potentiomètre digital et l'encodeur rotatoire. 
+
 ![image](https://user-images.githubusercontent.com/98756768/161789242-9f2b5f16-10a0-4c07-a2e3-fd237e8268ff.png)
 
-Nous avons ensuite procédé au routage du PCB : 
+Nous avons ensuite procédé au routage du PCB et l'implémentation des modèles 3D des différents modules: 
 
 <p float="left">
   <img src="https://user-images.githubusercontent.com/98756768/161790127-bbae3fb0-e9b2-458b-a9d0-22b62c6be26e.jpg" width="500" />
@@ -93,10 +97,18 @@ Le code est disponible [ici.](https://github.com/MOSH-Insa-Toulouse/2021_2022_PE
 >Une optimisation du code pour permettre une exécution plus rapide. Pour cela, il serait possible de diminiuer le nombre de variables utilisées pour la gestions des >menus ainsi qu'un changement sur la gestion du changement de menus. 
 >
 >Le code du potentiomètre digital pourrait également être améliorer pour une meilleure réactivité. Actuellement il nécessite un certain délai pour calibrer les >valeurs. 
+>
+>L'application doit être optimisé car elle ne fonctionne actuellement pas sur tous les téléphones.
 --------------------------------
 ## Application android
 
- 
+L'application android a été crée à l'aide de l'outil MIT APP INVENTOR. Il est possible de la télécharger via le .apk du dossier [application](https://github.com/MOSH-Insa-Toulouse/2021_2022_PEREUR_CUCULIERE/tree/main/APPLICATION_ANDROID).
+
+Le but de cette application est de récupérer les données du capteur via le module bluetooth présent sur le SHIELD et de les afficher sur un téléphone. Cette application fonctionne grâce au programme arduino qui va venir envoyer à interval régulier la valeur de Vadc. Vous pouvez voir ci-dessous une capture d'écran de l'application. 
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/98756768/168440169-d3f04dfb-fd62-40b5-9823-554bceb8bd8f.jpg" width="300" />
+</p>
 
 --------------------------------
 ## Banc de tests
