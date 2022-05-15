@@ -50,7 +50,7 @@ Sur le graphique ci-dessous, nous pouvons voir les différentes courbes de Vadc 
 
 ![Simulation_V(R2)_R0_100k](https://user-images.githubusercontent.com/98756768/163351654-184a1fdd-b3a8-4426-b8d4-4ebdba35b11a.jpg)
 
-
+On observe une variation non-linaire de la réponse en fonction de R2. Notre plage d'utilisation se situe vers 1kohm. Autour de cette valeur, il y peu de calibres possible ce qui réduit la finesse de la calibration et rend les mesures plus difficiles. 
 
 
 --------------------------------
